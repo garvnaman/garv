@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kkp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out, background-color 0.5s;
+        }
+
+        .option-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .image {
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .sparkle {
+            position: absolute;
+            background-color: #FFDD00;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: sparkleEffect 1s ease-in-out infinite;
+        }
+
+        @keyframes sparkleEffect {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        img {
+            width: 200px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="question">मैं तुम्हारा नाम बता सकता हूँ अगर तुम अपनी दादी का नाम बता दो </h1>
+
+    <div class="options">
+        <button class="option-btn" id="dora-btn" onclick="showResult('dora')">dora the explorer</button>
+        <button class="option-btn" id="sena-btn" onclick="showResult('sena')">sena didi</button>
+        <button class="option-btn" id="dagini-btn" onclick="showResult('dagini')">dagini</button>
+
+    </div>
+
+    <div class="result hidden" id="result"></div>
+    <div class="image hidden" id="image">
+        <img id="resultImage" src="" alt="">
+    </div>
+
+    <script>
+        function playSound() {
+            const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');  // Sample beep sound
+            audio.play();
+        }
+
+        function createParticles(event) {
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('sparkle');
+                document.body.appendChild(particle);
+
+                const x = event.clientX + Math.random() * 50 - 25;
+                const y = event.clientY + Math.random() * 50 - 25;
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+
+        function showResult(option) {
+            const questionDiv = document.getElementById("question");
+            const resultDiv = document.getElementById("result");
+            const imageDiv = document.getElementById("image");
+            const resultImage = document.getElementById("resultImage");
+
+            // Hide the question and options with bounce effect
+            questionDiv.style.display = "none";
+            document.querySelector(".options").style.display = "none";
+
+            // Play sound and create particles
+            playSound();
+            createParticles(event);
+
+            // Display the result and image after a short delay
+            setTimeout(() => {
+                if(option === 'dora') {
+                    resultDiv.textContent = "अगर आपने डोरा द एक्सप्लोरर चुना है तो आप जरूर हमारी प्यारी डोरा के पोटरू ᴀʀᴜɴ ♡︎♡︎ होंगे 🔥🔥🔥";
+                    resultImage.src = "image2.jpg";  // अपनी लोकल इमेज का पथ यहां डालें
+                } else if(option === 'sena') {
+                    resultDiv.textContent = "अगर आपने सेना दीदी चुना है तो आप जरूर हमारी प्यारी सेना दीदी के पोटरू SUNIT 0⁰⁷ (मितु) होंगे 🌊🌊🌊 मुझे माफ करें मेरे पास सेना दीदी की कोई भी छवि नहीं है";
+                    resultImage.src = "";  // अपनी लोकल इमेज का पथ यहां डालें
+                } else if(option === 'dagini') {
+                    resultDiv.textContent = "अगर आपने दागिनी चुना है तो आप जरूर दागिनी के पोत्रु ▄︻┻═┳一Garv होंगे 🍃🍃🍃 मुझे माफ़ करें मेरे पास दगिनी की कोई भी छवि नहीं है लेकिन मेरे पास दागिनी के पोटरू की छवि है";
+                    resultImage.src = "image1.png";  // अपनी लोकल इमेज का पथ यहां डालें
+                }
+
+                // Show the result and image with cool effects
+                resultDiv.classList.remove("hidden");
+                imageDiv.classList.remove("hidden");
+                resultDiv.style.animation = "fadeIn 2s";
+                imageDiv.style.animation = "fadeIn 2s";
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
